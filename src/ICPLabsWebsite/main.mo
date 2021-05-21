@@ -48,19 +48,6 @@ actor ICPlabswebsite {
         accountDB.getProfile(msg.caller);
     };
 
-    // writer should be Principal type
-    /**
-        @param article 
-    */
-    public shared(msg) func uploadArticle(article : Article) : async Bool{
-        if(articleDB.uploadArticle(article)){
-            true
-        }else{
-            false
-        }
-    };
-
-
     /**
         get article from article database
         @param title article title
@@ -74,6 +61,33 @@ actor ICPlabswebsite {
         articleDB.getArticleFromTime(time)
     };
 
-    //public shared(msg) 
+    /**
+    * upload article
+    * @param article : writer upload article
+    * @return Bool : wheather successful or fail to upload the article
+    */
+    public shared(msg) func uploadArticle(article : Article) : async Bool {
+        //articleDB.uploadArticle(tempArticle2);
+        switch (articleDB.uploadArticle(article)){
+            case (true, true) { true };
+            case (_){ false };
+        }
+    };
+
+    public shared(msg) func writerGetAllArticles() : async List.List<Article>{
+        switch (articleDB.writerGetAllArticles(msg.caller)) {
+            case null {null};
+            case (?articles) {articles};
+        }
+    };
+
+
+    public shared(msg) func writerGetSpecificArticle(title : Text) : async Article{
+        switch(articleDB.writerGetSpecificArticle(msg.caller, title)){
+            case null {throw Error.reject("no such article")};
+            case (?article) {article};
+        }
+    };
+
 
 }
