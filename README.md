@@ -18,11 +18,18 @@ cd ICPLabsWebsite/
 dfx help
 dfx config --help
 ```
-
+# 项目概述
 ICPLabsWebsite是由中国东北大学区块链Labs开发的，建立在InternetComputer上的开源网站
-主要负责对DFINITY技术文章的发布
-目前模块有账户模块与文章管理模块
+主要负责对DFINITY技术文章的发布与技术论坛构建
 
-下一步目标为：
+# 项目测试：
+进入本项目后，在命令行输入：
+```bash
+sh test.sh
+```
+会自动执行测试文件。
+测试文件源代码在本项目/src/testdb/下
+
+# 下一步目标：
 完善main代码，继续完善article的逻辑；完善前端代码
 学习cancan的架构，向完美适配IC软件架构的方向前进
