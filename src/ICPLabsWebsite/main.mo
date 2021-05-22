@@ -7,7 +7,7 @@ import Array "mo:base/Array";
 import Iter "mo:base/Iter";
 import Principal "mo:base/Principal";
 import List "mo:base/List";
-
+import Error "mo:base/Error";
 
 actor ICPlabswebsite {
     type UserId = types.UserId;
@@ -16,7 +16,15 @@ actor ICPlabswebsite {
     type Article = types.Article;
     private var accountDB = accountdb.AccountHashMap();
     private var articleDB = articledb.ArticleDB();
-
+    
+    /**
+    ******************************************************************
+    * Normal User
+    * get visible articles
+    *
+    ******************************************************************
+    */
+    
     public shared(msg) func checkExist() : async Bool {
         ignore(accountDB.existAccount(msg.caller));
         true;
@@ -61,33 +69,53 @@ actor ICPlabswebsite {
         articleDB.getArticleFromTime(time)
     };
 
+
+    /**
+    ******************************************************************
+    * Writer
+    * more priviledge
+    * get visible articles
+    * get his/her all articles / specific article
+    ******************************************************************
+    */
+
     /**
     * upload article
     * @param article : writer upload article
     * @return Bool : wheather successful or fail to upload the article
     */
-    public shared(msg) func uploadArticle(article : Article) : async Bool {
+    public shared(msg) func writerUploadArticle(article : Article) : async Bool {
         //articleDB.uploadArticle(tempArticle2);
         switch (articleDB.uploadArticle(article)){
-            case (true, true) { true };
+            case (true) { true };
             case (_){ false };
         }
     };
 
-    public shared(msg) func writerGetAllArticles() : async List.List<Article>{
-        switch (articleDB.writerGetAllArticles(msg.caller)) {
+    public query func writerGetAllArticles(writer : Principal) : async List.List<Article>{
+        switch (articleDB.writerGetAllArticles(writer)) {
             case null {null};
             case (?articles) {articles};
         }
     };
 
-
-    public shared(msg) func writerGetSpecificArticle(title : Text) : async Article{
-        switch(articleDB.writerGetSpecificArticle(msg.caller, title)){
+    public query func writerGetSpecificArticle(writer : Principal, title : Text) : async Article{
+        switch(articleDB.writerGetSpecificArticle(writer, title)){
             case null {throw Error.reject("no such article")};
             case (?article) {article};
         }
     };
+
+    public shared(msg) func writerUpdateArticle(title : Text, writer : Principal, newArticle : Article) : async Bool{
+        articleDB.updateArticle(title, writer, newArticle)
+    };
+
+    public shared(msg) func deleteArticle(title : Text, writer : Principal) : async Bool{
+        articleDB.deleteArticle(title, writer)
+    };
+
+
+
 
 
 }
