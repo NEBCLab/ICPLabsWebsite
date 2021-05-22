@@ -15,19 +15,19 @@ actor articledb_test{
 
     type Article = Types.Article;
 
-    var articleDB : ArticleDB.ArticleDB = ArticleDB.ArticleDB();
+    private var articleDB : ArticleDB.ArticleDB = ArticleDB.ArticleDB();
 
-    var testArticle : Article = {
+    private var testArticle : Article = {
         writer = Principal.fromText("ftri5-7aziy-4upmh-vm4h3-iustk-hhoht-awx5u-enn7y-u4slb-75dar-nae");
-        title = "test tile 1";
+        title = "test file 1";
         body = "article body";
         time = "2021-05-18";
     };
 
-    public shared(msg) func uploadArticle() : async Bool {
+    public shared(msg) func test_uploadArticle() : async Bool {
         var tempArticle1 : Article = {
         writer = msg.caller;
-        title = "test tile 1";
+        title = "test file 1";
         body = "article body";
         time = "2021-05-18";
         };
@@ -35,7 +35,7 @@ actor articledb_test{
     
         var tempArticle2 : Article = {
         writer = msg.caller;
-        title = "test tile 2";
+        title = "test file 2";
         body = "article body 2";
         time = "2021-05-21";
         };
@@ -46,23 +46,33 @@ actor articledb_test{
         }
     };
 
-    public shared(msg) func writerGetAllArticles() : async List.List<Article>{
+    public shared(msg) func test_writerGetAllArticles() : async List.List<Article>{
         switch (articleDB.writerGetAllArticles(msg.caller)) {
             case null {null};
             case (?articles) {articles};
         }
     };
 
-    public shared(msg) func writerGetSpecificArticle(title : Text) : async Article{
-        switch(articleDB.writerGetSpecificArticle(msg.caller, title)){
+    public shared(msg) func test_writerGetSpecificArticle() : async Article{
+        switch(articleDB.writerGetSpecificArticle(msg.caller, "test file 2")){
             case null {throw Error.reject("no such article")};
             case (?article) {article};
         }
     };
 
+    public shared(msg) func test_updateArticle() : async Bool{
+        var tempArticle3 : Article = {
+        writer = msg.caller;
+        title = "test file 3";
+        body = "article body 3";
+        time = "2021-05-22";
+        };
+        articleDB.updateArticle("test file 2", msg.caller, tempArticle3)
+    };
 
-
-
+    public shared(msg) func test_deleteArticle() : async Bool{
+        articleDB.deleteArticle("test file 1", msg.caller)
+    };
 
 
 };
