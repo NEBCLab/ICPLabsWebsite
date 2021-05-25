@@ -36,7 +36,7 @@ actor articledb_test{
         var tempArticle2 : Article = {
         writer = msg.caller;
         title = "test file 2";
-        body = "article body 2";
+        body = "In this course,students will learn the fundamentals of distributed systems programming by building on top of the open auction platform we previously created in the Web Development section. Module 1 serves as an intro to this unit, providing a primer for Distributed Systems by reviewing distribution transparency and distributed time. Module 2 introduces students to the idea of \"locking\", borrowed from database management systems, which ensures that users cannot simultaneously bid on the same auction. In Module 3, students implement a feature that ensures bids are processed in the correct order. Finally, in Module 4 students explore how they can maintain bid \"secrecy\" in a distributed system through the use of hashing.";
         time = "2021-05-21";
         };
         //articleDB.uploadArticle(tempArticle2);
@@ -74,5 +74,21 @@ actor articledb_test{
         articleDB.deleteArticle("test file 1", msg.caller)
     };
 
+    public shared(msg) func test_nameCollision() : async Bool{
+        var tempArticle3 : Article = {
+        writer = msg.caller;
+        title = "test file 1";
+        body = "name Collision test file 1 body";
+        time = "2021-05-25";
+        };
+        articleDB.updateArticle("test file 1", msg.caller, tempArticle3)
+    };
+
+    public shared(msg) func getArticle() : async List.List<Article>{
+        switch (articleDB.getArticle("test file 1")) {
+            case null {null};
+            case (?list) {list};
+        }
+    };
 
 };
