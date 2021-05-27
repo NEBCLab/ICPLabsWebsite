@@ -6,7 +6,7 @@ actor account_test{
     type Profile = Types.Profile;
     type NewProfile = Types.NewProfile;
 
-    private testAccountDB = AccountDB.AccountHashMap();
+    private var testAccountDB = AccountDB.AccountHashMap();
 
     public shared(msg) func testCreateAccount() : async Bool {
         var testUserProfile : Profile = {
@@ -14,7 +14,6 @@ actor account_test{
             name = "test name";
             email = "@email";
         };
-
         testAccountDB.createAccount(msg.caller, testUserProfile);
         true
     }; 
