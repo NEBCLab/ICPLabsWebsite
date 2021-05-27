@@ -14,44 +14,72 @@ echo "deploy the canisters into network"
 dfx deploy
 echo " ========== deployment finished ========== "
 echo "----------------------------------------------------------------------------------------------------------"
+echo " ========== test account datatabse ========== "
+echo ""
+echo " ========== test create account ========== "
+dfx canister call accountDBTest testCreateAccount
+echo " ========== test create account finished ========== "
+echo ""
+echo " ========== test update account account ========== "
+dfx canister call accountDBTest testUpdateAccount
+echo " ========== test update account account finished ========== "
+echo ""
+echo " ========== test get account profile ========== "
+dfx canister call accountDBTest testGetProfile
+echo " ========== test get account profile finished ========== "
+echo ""
+echo " ========== test add friend account ========== "
+dfx canister call accountDBTest testAddFriend
+echo " ========== test add friend account finished ========== "
+echo ""
+echo " ========== test get friend profile  ========== "
+dfx canister call accountDBTest testGetFriendProfile
+echo " ========== test get friend profile finished  ========== "
+echo ""
+echo " ========== test delete friend account ========== "
+dfx canister call accountDBTest testDeleteFriend
+echo " ========== test delete friend account finished ========== "
+echo ""
+echo " ========== test account database finished ========== "
+echo "----------------------------------------------------------------------------------------------------------"
 echo " ========== test article database ========== "
 echo " ========== test upload article ========== "
-dfx canister call ICPLabsWebsite test_uploadArticle
+dfx canister call articleDBTest test_uploadArticle
 echo " ========== test upload article finished ========== "
 echo ""
 echo " ========== articles in database now : ( test writer Get All Articles function )  ========== "
-dfx canister call ICPLabsWebsite test_writerGetAllArticles
+dfx canister call articleDBTest test_writerGetAllArticles
 echo " ========== test writer Get All Articles finished ========== "
 echo ""
 echo " ========== test writer Get Specific Article, default is \" test file 2 \"  ========== "
-dfx canister call ICPLabsWebsite test_writerGetSpecificArticle
+dfx canister call articleDBTest test_writerGetSpecificArticle
 echo " ========== test writer Get Specific Article finished ========== "
 echo ""
 echo " ========== test update Article, default is \"test file 2 \" ========== "
-dfx canister call ICPLabsWebsite test_updateArticle
+dfx canister call articleDBTest test_updateArticle
 echo " ========== update Article finished ========== "
 echo ""
 echo " ========== articles in article database : ========== "
-dfx canister call ICPLabsWebsite test_writerGetAllArticles
+dfx canister call articleDBTest test_writerGetAllArticles
 echo " ========== test update Article finished ========== "
 echo ""
 echo " ========== test upload name collision article test name : \" test file 1 \" ========== "
-dfx canister call ICPLabsWebsite test_nameCollision
+dfx canister call articleDBTest test_nameCollision
 echo " ========== upload name collision Article finished ========== "
 echo ""
 echo " ========== articles in article database : ========== "
-dfx canister call ICPLabsWebsite test_writerGetAllArticles
+dfx canister call articleDBTest test_writerGetAllArticles
 echo " ========== upload name collision Article finished ========== "
 echo " ========== get article in article database : article name : \" test file 1 \" : ========== "
-dfx canister call ICPLabsWebsite getArticle
+dfx canister call articleDBTest getArticle
 echo " ========== get article in article database finished : ========== "
 echo " ========== test upload name collision Article finished ========== "
 echo ""
 echo " ========== test delete article, default is test file 1 ========== "
-dfx canister call ICPLabsWebsite test_deleteArticle
+dfx canister call articleDBTest test_deleteArticle
 echo " ========== delete article finished ========== "
 echo " ========== articles in article database : ========== "
-dfx canister call ICPLabsWebsite test_writerGetAllArticles
+dfx canister call articleDBTest test_writerGetAllArticles
 echo " ========== delete article finished ========== "
 echo " ========== test article database finished ========== "
 echo "----------------------------------------------------------------------------------------------------------"
