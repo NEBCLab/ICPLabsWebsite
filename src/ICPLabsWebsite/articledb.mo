@@ -350,13 +350,6 @@ module{
 
         
 
-        
-
-        // //delete the article
-        // public func deleteArticle(title : Text, writer : Principal) : Bool{
-        //     true
-        // };
-
         //database "like" search
         //public func likeSearch(title : Text) : List.LIst<Article>{};
 
