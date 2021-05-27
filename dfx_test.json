@@ -1,8 +1,16 @@
 {
   "canisters": {
     "ICPLabsWebsite": {
-      "main": "src/ICPLabsWebsite/dbtest/articledb_test.mo",
+      "main": "src/ICPLabsWebsite/main.mo",
       "type": "motoko"
+    },
+    "articleDBTest" :{
+      "main" : "src/dbtest/articledb_test.mo",
+      "type" : "motoko"
+    },
+    "accountDBTest" : {
+      "main" : "src/dbtest/account_test.mo",
+      "type" : "motoko"
     },
     "ICPLabsWebsite_assets": {
       "dependencies": [
